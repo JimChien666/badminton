@@ -1,0 +1,34 @@
+services:
+  laravel:
+    build:
+      context: ./
+    image: laravel
+    stdin_open: true
+    tty: true
+    ports:
+      - 8080:8000
+    volumes:
+      - ./:/var/www/html:delegated
+    depends_on:
+      mysql:
+        condition: service_healthy
+  mysql:
+    image: mysql:5.7
+    command: [
+      --character-set-server=utf8,
+      --innodb-strict-mode=0,
+      --innodb-file-format=barracuda,
+      --innodb-file-per-table=1,
+      --innodb-large-prefix=1
+    ]
+    restart: always
+    # 讓外部環境也可連線
+    ports:
+      - 33060:3306
+    environment:
+      MYSQL_DATABASE: badminton
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-ppassword"]
+      retries: 3
+      timeout: 5s

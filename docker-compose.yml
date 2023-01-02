@@ -1,17 +1,23 @@
 services:
-  laravel:
+  badminton:
     build:
       context: ./
     image: laravel
     stdin_open: true
     tty: true
     ports:
-      - 8080:8000
+      - 8080:8080
     volumes:
       - ./:/var/www/html:delegated
     depends_on:
       mysql:
         condition: service_healthy
+    entrypoint:
+            - bash
+            - -c
+            - |
+              set -e
+              php artisan serve --host 0.0.0.0 --port 8080
   mysql:
     image: mysql:5.7
     command: [
@@ -22,9 +28,8 @@ services:
       --innodb-large-prefix=1
     ]
     restart: always
-    # 讓外部環境也可連線
     ports:
-      - 33060:3306
+      - 3306:3306
     environment:
       MYSQL_DATABASE: badminton
       MYSQL_ROOT_PASSWORD: password

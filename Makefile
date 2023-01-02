@@ -11,11 +11,12 @@ all: build
 vendor: composer.lock
 	composer install
 
-build: service.down vendor
+build: down vendor
 	docker-compose build
 
 up:
 	docker-compose up -d
+	docker-compose exec badminton php artisan migrate --force
 
 down:
 	docker-compose down

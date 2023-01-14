@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AccountService;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Account\LoginRequest;
+use App\Http\Requests\Account\RegisterRequest;
 
 class AccountController extends Controller
 {
@@ -18,10 +20,10 @@ class AccountController extends Controller
 
     /**
      * 登入取得Token
-     * @param Request $request
+     * @param LoginRequest $request
      * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
@@ -35,15 +37,15 @@ class AccountController extends Controller
             ];
         }
 
-        return response()->noContent();
+        return response()->json($result);
     }
 
     /**
      * 註冊使用者
-     * @param Request $request
+     * @param RegisterRequest $request
      * @return JsonResponse
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $result = $this->accountService->register($request->all());
         return response()->noContent();
@@ -51,10 +53,7 @@ class AccountController extends Controller
 
     public function show(Request $request)
     {
-
-        dd(Auth::user());
-        $user = JWTAuth::toUser($token);
-        dd($user);
-        // return response()->json($result);
+        $user = Auth::user();
+        return response()->json($user->select(['name', 'email'])->get()->toArray());
     }
 }

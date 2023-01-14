@@ -8,6 +8,8 @@ VERSION := latest
 
 all: build
 
+test: vendor .env phpcs build/phpunit
+
 vendor: composer.lock
 	composer install
 
@@ -19,4 +21,18 @@ up:
 	docker-compose exec badminton php artisan migrate --force
 
 down:
-	docker-compose down
+	docker-compose
+
+.env:
+	cp .env.example .env
+	php artisan key:generate
+
+phpcs:
+    php -dmemory_limit=-1 vendor/bin/phpcs --parallel=1
+
+clean-build-phpcs:
+	rm -rf build/phpcs.xml
+
+build/phpunit:
+	php -dmemory_limit=-1 vendor/bin/phpunit --no-coverage --stop-on-failure
+

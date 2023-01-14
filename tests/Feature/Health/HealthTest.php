@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Health;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class HealthTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function test_the_application_returns_a_successful_response()
+    public function test_health_alive()
     {
-        $response = $this->get('/');
-
+        $response = $this->get(route('health.alive'));
         $response->assertStatus(200);
+        $response->assertContent("Hello");
     }
 }

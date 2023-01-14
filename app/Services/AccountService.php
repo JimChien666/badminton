@@ -21,7 +21,6 @@ class AccountService
 
         // 密碼不符
         if (! Hash::check($password, $user->password)) {
-            // TODO error handler
             dd('password not matched');
         }
 

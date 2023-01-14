@@ -1,0 +1,32 @@
+language: php
+
+php:
+  - 8.1
+
+services:
+  - mysql
+
+branches:
+  only:
+    - master
+
+before_install:
+  - sudo service mysql restart
+  - mysql -e "SET PASSWORD = PASSWORD('password');"
+  - mysql -hlocalhost -uroot -ppassword -P33060 -e "create database test"
+
+install:
+  - scripts/env ci
+  - composer check-platform-reqs
+  - composer install
+
+before_script:
+  - php artisan migrate
+
+script:
+  - composer phpcs
+  - php vendor/bin/phpunit
+
+cache:
+  directories:
+    - vendor

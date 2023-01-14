@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+BASE_SQL_FILE=`find ./database/schema -name "*.sql"`
+MIGRATION_SQL_FILE=`find ./database/schema -name "*pmoac*.sql" | sort`
+
+for entry in ${BASE_SQL_FILE}
+    do
+        `mysql < ${entry}`
+    done
+

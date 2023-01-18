@@ -21,7 +21,7 @@ up:
 	docker-compose exec badminton php artisan migrate --force
 
 down:
-	docker-compose
+	docker-compose down
 
 .env:
 	cp .env.example .env

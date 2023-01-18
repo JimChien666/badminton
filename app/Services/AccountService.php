@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Exceptions\Http\register\ResourceConflictException;
 use App\Models\User;
-use Illuminate\Support\Arr;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AccountService
 {
@@ -32,8 +33,18 @@ class AccountService
         $name = Arr::get($data, 'name');
         $email = Arr::get($data, 'email');
         $password = Arr::get($data, 'password');
-        $user = $this->userRepository->registerAccount($name, $email, $password);
+        $cellphone = Arr::get($data, 'cellphone');
+        $isEmailExist = $this->checkEmailExist($email);
+        if ($isEmailExist) {
+            throw new ResourceConflictException();
+        }
+        $user = $this->userRepository->registerAccount($name, $email, $password, $cellphone);
 
         return $user;
+    }
+
+    private function checkEmailExist(string $email): bool
+    {
+        return User::where('email', $email)->first() !== null;
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Post;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'cellphone'
     ];
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use Exception;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -31,14 +31,16 @@ class UserRepository
      * @param string $name 姓名
      * @param string $email 信箱
      * @param string $password 密碼
+     * @param string $cellphone 手機
      * @return mixed
      */
-    public function registerAccount(string $name, string $email, string $password)
+    public function registerAccount(string $name, string $email, string $password, string $cellphone)
     {
         try {
             return User::create([
                 'name' => $name,
                 'email' => $email,
+                'cellphone' => $cellphone,
                 'password' => Hash::make($password),
             ]);
         } catch (Exception $e) {

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `badminton`.`users` (
     `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `cellphone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
     `created_at` timestamp NULL DEFAULT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
     PRIMARY KEY (`id`),

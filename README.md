@@ -9,6 +9,7 @@
 * [GNU Make][]
 * [Docker][]
 * [Docker Compose][]
+* [PHP][] 8.1
 
 ## 開發環境設定
 
@@ -18,13 +19,32 @@
     make build
 ```
 
-2. Create and start all containers.
+
+2. composer install
+
+```
+    composer install --ignore-platform-req=ext-mongodb
+```
+
+3. Generate .env
+
+```
+    make env
+```
+
+4. Create and start all containers.
 
 ```
     make up
 ```
 
-3. Check whether the service run successfully.
+5. Generate DB
+
+```
+    make db
+```
+
+6. Check whether the service run successfully.
 
 ```
     http://[ip]:8080/

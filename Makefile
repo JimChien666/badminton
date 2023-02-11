@@ -8,22 +8,21 @@ VERSION := latest
 
 all: build
 
-test: vendor .env phpcs build/phpunit
+test: phpcs build/phpunit
 
-vendor: composer.lock
-	composer install
-
-build: down vendor
+build: down
 	docker-compose build
 
 up:
 	docker-compose up -d
+
+db:
 	docker-compose exec badminton php artisan migrate --force
 
 down:
 	docker-compose down
 
-.env:
+env:
 	cp .env.example .env
 	php artisan key:generate
 

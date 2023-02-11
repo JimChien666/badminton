@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Exceptions\Http\register;
+namespace App\Exceptions\Http;
 
 use App\Constant\ErrorMessage;
 use App\Exceptions\ApiException;
 use Throwable;
 
-class ResourceConflictException extends ApiException
+class EmailNotFoundException extends ApiException
 {
     /**
      * ValidationErrorException constructor.
@@ -15,10 +15,10 @@ class ResourceConflictException extends ApiException
      * @param Throwable|null $previous
      */
     public function __construct(
-        $errorMessage = ErrorMessage::EMAIL_CONFLICE_MSG,
+        $errorMessage = ErrorMessage::EMAIL_NOT_FOUND_MSG,
         Throwable $previous = null
     ) {
-        parent::__construct(409, $errorMessage, $previous);
+        parent::__construct(404, $errorMessage, $previous);
 
         $this->errorMessage = $errorMessage;
     }

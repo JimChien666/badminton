@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Password;
+namespace App\Http\Controllers\Passwords;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Passwords\UpdateRequest;
 use App\Services\AccountService;
 
 class UpdateController extends Controller
@@ -14,9 +15,9 @@ class UpdateController extends Controller
 
     /**
      * 更新密碼
-     * @param ResetRequest $request
+     * @param UpdateRequest $request
      */
-    public function __invoke(ResetRequest $request)
+    public function __invoke(UpdateRequest $request)
     {
     }
 }

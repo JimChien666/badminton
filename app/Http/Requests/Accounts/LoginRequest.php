@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Account;
+namespace App\Http\Requests\Accounts;
 
 use App\Constant\Regex;
 use App\Http\Requests\FormRequest;
 use App\Rules\EmailRule;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     public function rules()
     {
@@ -18,15 +18,6 @@ class RegisterRequest extends FormRequest
             'password' => [
                 'required',
                 "regex:" . Regex::PASSWORD
-            ],
-            'cellphone' => [
-                'required',
-                "regex:" . Regex::CELLPHONE
-            ],
-            'name' => [
-                'required',
-                'string',
-                'max:255'
             ],
         ];
     }

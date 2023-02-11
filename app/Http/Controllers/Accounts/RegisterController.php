@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Account\RegisterRequest;
+use App\Http\Requests\Accounts\RegisterRequest;
 use App\Services\AccountService;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;

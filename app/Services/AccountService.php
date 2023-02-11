@@ -21,7 +21,7 @@ class AccountService
         $user = $this->userRepository->searchUserByEmail($email);
 
         // 密碼不符
-        if (! Hash::check($password, $user->password)) {
+        if (!Hash::check($password, $user->password)) {
             dd('password not matched');
         }
 
@@ -43,7 +43,7 @@ class AccountService
         return $user;
     }
 
-    private function checkEmailExist(string $email): bool
+    public function checkEmailExist(string $email): bool
     {
         return User::where('email', $email)->first() !== null;
     }
